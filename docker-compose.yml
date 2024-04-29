@@ -1,23 +1,32 @@
 version: '3.8'
 
 services:
-  backend_itb_kk:
+  frontend:
     build:
-      context: ./INT221-NW3-PROJECT-BACKEND
-      dockerfile: Dockerfile
+      context: ./INT221-NW3-PROJECT-FRONTEND 
+      dockerfile: Dockerfile  
+    restart: always
+    ports:
+      - '3333:80' 
+    depends_on:
+      - backend 
+
+  backend:
+    build:
+      context: ./INT221-NW3-PROJECT-BACKEND 
+      dockerfile: Dockerfile  
     restart: always
     ports:
       - '8080:8080'
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://ip23nw3.sit.kmutt.ac.th:3000/kradan_kanban_itb_kk
+      SPRING_DATASOURCE_URL: jdbc:mysql://lvm65058.sit.kmutt.ac.th:3000/kradan_kanban_itb_kk
       SPRING_JPA_HIBERNATE: update
     depends_on:
-      - dbserver_mysql_itb_kk
+      - dbserver
 
-  dbserver_mysql_itb_kk:
-    container_name: dbserver_mysql_itb_kk
+  dbserver:
+    container_name: dbserver
     image: mysql/mysql-server
-    #restart: always
     ports:
       - '3000:3306'
     environment:
