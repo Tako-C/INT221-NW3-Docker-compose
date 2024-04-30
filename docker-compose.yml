@@ -32,6 +32,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 'mysql'
     volumes:
-      - ./scrip_create_kradan_kanbanV3.sql:/docker-entrypoint-initdb.d/scrip_create_kradan_kanbanV3.sql
+      - ./scrip_create_kradan_kanbanV4.sql:/docker-entrypoint-initdb.d/scrip_create_kradan_kanbanV4.sql
     healthcheck:
       test: "exit 0"
