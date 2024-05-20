@@ -1,29 +1,6 @@
 version: '3.8'
 
 services:
-  frontend:
-    build:
-      context: ./INT221-NW3-PROJECT-FRONTEND 
-      dockerfile: Dockerfile  
-    restart: always
-    ports:
-      - '3333:80' 
-    depends_on:
-      - backend 
-
-  backend:
-    build:
-      context: ./INT221-NW3-PROJECT-BACKEND 
-      dockerfile: Dockerfile  
-    restart: always
-    ports:
-      - '8080:8080'
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://lvm65058.sit.kmutt.ac.th:3000/kradan_kanban_itb_kk
-      SPRING_JPA_HIBERNATE: update
-    depends_on:
-      - dbserver
-
   dbserver:
     container_name: dbserver
     image: mysql/mysql-server
@@ -32,6 +9,31 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 'mysql'
     volumes:
-      - ./scrip_create_kradan_kanbanV4.sql:/docker-entrypoint-initdb.d/scrip_create_kradan_kanbanV4.sql
+      - ./scrip_create_kradan_kanbanV5.sql:/docker-entrypoint-initdb.d/scrip_create_kradan_kanbanV5.sql
     healthcheck:
       test: "exit 0"
+
+  backend:
+    build:
+      context: ./INT221-NW3-PROJECT-BACKEND
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '8080:8080'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://ip23nw3.sit.kmutt.ac.th:3000/kradan_kanban_itb_kk
+      SPRING_JPA_HIBERNATE: update
+    depends_on:
+      - dbserver
+
+  frontend:
+    build:
+      context: ./INT221-NW3-PROJECT-FRONTEND
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '80:80'
+    depends_on:
+      - backend
+volumes:
+  temp_volume:
