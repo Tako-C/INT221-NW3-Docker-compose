@@ -75,7 +75,7 @@ use kradan_kanban_itb_kk;
 
 insert into statuss (name,description) values("No Status","The default status");
 insert into statuss (name,description) values("To Do",null);
-insert into statuss (name,description) values("Doing","Being worked 0n");
+insert into statuss (name,description) values("Doing","Being worked on");
 insert into statuss (name,description) values("Done","Finished");
 
 
