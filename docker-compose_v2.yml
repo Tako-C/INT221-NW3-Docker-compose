@@ -42,5 +42,4 @@ services:
     restart: always
     depends_on:
       - backend
-volumes:
-  temp_volume:
+
